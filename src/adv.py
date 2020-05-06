@@ -38,6 +38,13 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+class Player:
+    def __init__(self, name, location):
+        self.name = name
+        self.location = location
+
+    def __str__(self):
+        return f"Player {self.name} is in ${self.location} room"
 
 # Write a loop that:
 #
@@ -48,4 +55,28 @@ room['treasure'].s_to = room['narrow']
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
-# If the user enters "q", quit the game.
+# x If the user enters "q", quit the game.
+
+while True:
+    selection = input("Select the number of a department or type 'exit' to leave: ")
+    if selection == "q":
+        print("My sword I need no longer. Then evening wind will carry me home.")
+        break
+​
+    # add error handling so that when a user inputs a department for a non-existent
+    # department, we'll notify them that that department doesn't exist
+    try:
+        # casting might cause an error
+        selection = int(selection)
+        if selection >= len(store.departments):
+            print("That's not a valid department")
+        elif selection >= 0 and selection < len(store.departments):
+            print(f"{store.departments[selection]}")
+        else:
+            print("Department numbers are positive")
+    except ValueError:
+        # the user didn't give us a value that could be cast to a number
+        print("Please enter your choice as a number")
+​
+    # when should we break out of this loop?
+    # let's let the user type "exit" into the selection to have them leave 
